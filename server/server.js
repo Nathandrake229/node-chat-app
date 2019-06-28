@@ -12,10 +12,17 @@ var io = socketio(server)
 app.use(express.static(pubpath))
 io.on('connection', (socket)=>{
     console.log('new user connected')
+    
+    socket.on('disconnect', (socket)=>{
+        console.log('disconnected')
+    })
+    socket.on('createmes', (res)=>{
+        console.log(res)
+        socket.emit('newmes', res)
+    })
 })
-io.on('disconnect', (socket)=>{
-    console.log('disconnected')
-})
+
 server.listen(port, ()=>{
     console.log(`server is up ${port}`)
 }) 
+ 
