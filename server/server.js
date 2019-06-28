@@ -15,11 +15,16 @@ io.on('connection', (socket)=>{
     
     socket.on('disconnect', (socket)=>{
         console.log('disconnected')
-    })
     socket.on('createmes', (res)=>{
         console.log(res)
-        socket.emit('newmes', res)
-    })
+        io.emit('newmes', {
+            from:res.from,
+            text: res.text,
+            createat: new Date().getTime ()
+        })
+    })    
+})
+
 })
 
 server.listen(port, ()=>{
